@@ -2,6 +2,7 @@ import tempfile
 import os
 import csv
 import logging
+from PIL import Image
 from importlib import resources
 from .img_utils import get_average_color
 
@@ -38,5 +39,6 @@ def generate_metafile():
             logger.debug("Writing emoji metadata")
             csvwriter = csv.writer(file, delimiter=',')
             for emoji_path in p.glob("*"):
-                    r, g, b, a = get_average_color(emoji_path)
+                    image = Image.open(emoji_path)
+                    r, g, b, a = get_average_color(image)
                     csvwriter.writerow([emoji_path.name, r, g, b])
