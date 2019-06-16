@@ -6,6 +6,12 @@ emojimage is a Python program to convert an image into a collage of emojis.
 
 TODO
 
+## FAQ
+
+**Where are the emojis from?**
+
+> The emojis are from JoyPixels.
+
 ## License
 
 Copyright (C) 2019 Harry Peach
