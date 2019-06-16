@@ -1,3 +1,4 @@
+import logging
 from PIL import Image
 
 

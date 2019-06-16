@@ -1,10 +1,12 @@
 import tempfile
 import os
 import csv
+import logging
 from importlib import resources
 from .img_utils import get_average_color
 
 METAFILE_NAME = "emojimage_metafile"
+logger = logging.getLogger("root")
 
 
 def get_metafile_path():
@@ -28,8 +30,12 @@ def does_metafile_exist():
 def generate_metafile():
     """Generates a metafile of information about each emoji for easy use in the program
     """
+    logger.info("Generating emoji metafile")
+    logger.debug("Opening emoji resource folder")
     with resources.path("emojimage", "emoji") as p:
+        logger.debug("Opening metafile")
         with open(get_metafile_path(), "w", newline='\n') as file:
+            logger.debug("Writing emoji metadata")
             csvwriter = csv.writer(file, delimiter=',')
             for emoji_path in p.glob("*"):
                     r, g, b, a = get_average_color(emoji_path)
