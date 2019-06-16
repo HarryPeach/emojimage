@@ -10,7 +10,7 @@ DESCRIPTION = "Generate an emoji collage from an image"
 URL = "https://github.com/HarryPeach/emojimage"
 EMAIL = "harrypeach1999@gmail.com"
 AUTHOR = "Harry Peach"
-REQUIRES_PYTHON = ">=3.6.0"
+REQUIRES_PYTHON = ">=3.7.0"
 
 REQUIRED = [
     "pillow"
@@ -90,7 +90,7 @@ setup(
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
-    license='MIT',
+    license='GPLv3',
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
