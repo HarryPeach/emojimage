@@ -18,26 +18,36 @@ def create_collage(path, image_scale=1, emoji_size=64):
         emoji_size {int} -- The size for each emoji to be (default: {64})
     """
     image = Image.open(path)
-    print(image.size)
+
+    # Resize the image if a scale is specified
     if image_scale != 1:
         image = resize_image(image, image_scale)
-    print(path)
-    pass
+
+    # Unpack the image size
+    width, height = image.size
+    # How many emojis to use on the x axis
+    emojis_x = width // emoji_size
+    # How many emojis to use on the y axis
+    emojis_y = height // emoji_size
 
 if __name__ == "__main__":
     # Setup logger
     logger = setup_custom_logger("root")
 
+    # Setup argument parser
     parser = argparse.ArgumentParser(description="convert an image into a collage of emojis")
     parser.add_argument("image_input", help="The image to convert")
     parser.add_argument("--force-metafile-generate", action="store_true",
                         help="Forces regeneration of the average-colour emoji metafile")
+    parser.add_argument("-d", "--debug", action="store_true", help="Enable printing of debug logs")
 
     args = parser.parse_args()
 
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+
     # Setup emoji meta file
     if not does_metafile_exist() or args.force_metafile_generate:
-        logger.info("Generating emoji metafile")
         generate_metafile()
     else:
         logger.debug("Emoji metafile already existed, and so was not created")

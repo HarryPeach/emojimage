@@ -2,6 +2,18 @@ import logging
 from PIL import Image
 
 
+def get_emoji_image(name):
+    """Returns an image of an emoji, given its localized name
+
+    Arguments:
+        name {string} -- The localized name of the emoji
+
+    Returns:
+        PIL.Image -- The image of the emoji
+    """
+    pass
+
+
 def resize_image(image, scale):
     """Scale an image by a specific factor (Nearest Neighbour)
 
