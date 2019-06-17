@@ -4,7 +4,7 @@ import os
 from PIL import Image
 from .metafile import generate_metafile, does_metafile_exist
 from .log_manager import setup_custom_logger
-from .img_utils import resize_image
+from .img_utils import resize_image, get_emoji_image
 
 
 def create_collage(path, image_scale=1, emoji_size=64):
@@ -29,6 +29,14 @@ def create_collage(path, image_scale=1, emoji_size=64):
     emojis_x = width // emoji_size
     # How many emojis to use on the y axis
     emojis_y = height // emoji_size
+
+    # The image to paste the emojis onto
+    composite_image = Image.new("RGB", (width, height))
+    # For every x emoji
+    for x in range(0, emojis_x):
+        print(f"X coord: {(width/emojis_x) * x}")
+
+    print(get_emoji_image("adult"))
 
 if __name__ == "__main__":
     # Setup logger

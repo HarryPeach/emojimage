@@ -1,17 +1,22 @@
 import logging
+import os
 from PIL import Image
+from importlib import resources
 
 
 def get_emoji_image(name):
-    """Returns an image of an emoji, given its localized name
+    """Returns an image of an emoji, given its localized name. Returns None if emoji does not exist.
 
     Arguments:
         name {string} -- The localized name of the emoji
 
     Returns:
-        PIL.Image -- The image of the emoji
+        PIL.Image -- The image of the emoji, None if emoji does not exist.
     """
-    pass
+    with resources.path("emojimage", "emoji") as p:
+        for emoji_path in p.glob(name + ".*"):
+            return emoji_path
+        return None
 
 
 def resize_image(image, scale):

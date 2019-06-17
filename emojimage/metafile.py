@@ -41,4 +41,4 @@ def generate_metafile():
             for emoji_path in p.glob("*"):
                     image = Image.open(emoji_path)
                     r, g, b, a = get_average_color(image)
-                    csvwriter.writerow([emoji_path.name, r, g, b])
+                    csvwriter.writerow([emoji_path.stem, r, g, b])
