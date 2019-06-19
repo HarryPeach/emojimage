@@ -2,7 +2,7 @@ import logging
 import argparse
 import os
 from PIL import Image
-from .metafile import generate_metafile, does_metafile_exist
+from .metafile import generate_metafile, does_metafile_exist, populate_emoji_dictionary
 from .log_manager import setup_custom_logger
 from .img_utils import resize_image, get_emoji_image
 
@@ -62,3 +62,4 @@ if __name__ == "__main__":
 
     # TODO implement arguments for width, height, and emoji size
     create_collage(args.image_input)
+    populate_emoji_dictionary()

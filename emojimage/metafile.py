@@ -9,6 +9,21 @@ from .img_utils import get_average_color
 METAFILE_NAME = "emojimage_metafile"
 logger = logging.getLogger("root")
 
+# A dictionary containing all emoji and color data
+emoji_dictionary = dict()
+
+
+def populate_emoji_dictionary():
+    """Adds emoji data from metafile to the emoji dictionary
+    """
+    with open(get_metafile_path(), newline='\n') as file:
+        csvreader = csv.reader(file, delimiter=',')
+        for row in csvreader:
+            rgbval = tuple(row[-3:])
+            emoji_dictionary.setdefault(rgbval, [])
+            emoji_dictionary[rgbval].append(row[0])
+    print(emoji_dictionary)
+
 
 def get_metafile_path():
     """Gets the fully qualified path of the metafile
