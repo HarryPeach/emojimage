@@ -1,6 +1,7 @@
 import logging
 import argparse
 import os
+import random
 from PIL import Image
 from .metafile import (generate_metafile, does_metafile_exist, populate_emoji_dictionary, emoji_dictionary,
                        get_closest_colour)
@@ -19,6 +20,10 @@ def create_collage(path, image_scale=1, emoji_size=16):
         emoji_size {int} -- The size for each emoji to be (default: {16})
     """
     image = Image.open(path)
+
+    # Populate the emoji dictionary if it is empty
+    if not emoji_dictionary:
+        populate_emoji_dictionary() 
 
     # Resize the image if a scale is specified
     if image_scale != 1:
@@ -44,7 +49,7 @@ def create_collage(path, image_scale=1, emoji_size=16):
             temp_avg = get_average_color(temp_image)
 
             offset = ((width//emojis_x) * x, (height//emojis_y) * y)
-            emoji_image = get_emoji_image("face-with-tears-of-joy")
+            emoji_image = get_emoji_image(random.choice(get_closest_colour(get_average_color(temp_image))))
             composite_image.paste(emoji_image.resize((emoji_size, emoji_size)), offset)
 
     # Save the final image
@@ -73,6 +78,4 @@ if __name__ == "__main__":
         logger.debug("Emoji metafile already existed, and so was not created")
 
     # TODO implement arguments for width, height, and emoji size
-    # create_collage(args.image_input)
-    populate_emoji_dictionary()
-    get_closest_colour((123, 123, 253))
+    create_collage(args.image_input)

@@ -43,17 +43,17 @@ def does_metafile_exist():
     return os.path.isfile(get_metafile_path())
 
 
-def get_closest_colour(rgb):
+def get_closest_colour(rgba):
     """Takes in a colour and returns the closest emojis to that colour
        Adapted from https://stackoverflow.com/a/54242348
 
     Arguments:
-        rgb {tuple} -- The red, green, and blue values of the input
+        rgba {tuple} -- The red, green, blue, and alpha values of the input
 
     Returns:
         list -- The emoji/emojis that are closest to the given colour
     """
-    r, g, b = rgb
+    r, g, b, a = rgba
     colour_diffs = []
     for colour in emoji_dictionary.keys():
         cr, cg, cb = colour

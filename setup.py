@@ -11,6 +11,7 @@ URL = "https://github.com/HarryPeach/emojimage"
 EMAIL = "harrypeach1999@gmail.com"
 AUTHOR = "Harry Peach"
 REQUIRES_PYTHON = ">=3.7.0"
+VERSION = "1.0.0"
 
 REQUIRED = [
     "pillow"
@@ -88,7 +89,6 @@ setup(
         'console_scripts': ['mycli=emojimage:cli'],
     },
     install_requires=REQUIRED,
-    extras_require=EXTRAS,
     include_package_data=True,
     license='GPLv3',
     classifiers=[
