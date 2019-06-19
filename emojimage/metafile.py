@@ -2,6 +2,7 @@ import tempfile
 import os
 import csv
 import logging
+from math import sqrt
 from PIL import Image
 from importlib import resources
 from .img_utils import get_average_color
@@ -22,7 +23,6 @@ def populate_emoji_dictionary():
             rgbval = tuple(row[-3:])
             emoji_dictionary.setdefault(rgbval, [])
             emoji_dictionary[rgbval].append(row[0])
-    print(emoji_dictionary)
 
 
 def get_metafile_path():
@@ -41,6 +41,25 @@ def does_metafile_exist():
         bool -- If the metafile already exists
     """
     return os.path.isfile(get_metafile_path())
+
+
+def get_closest_colour(rgb):
+    """Takes in a colour and returns the closest emojis to that colour
+       Adapted from https://stackoverflow.com/a/54242348
+
+    Arguments:
+        rgb {tuple} -- The red, green, and blue values of the input
+
+    Returns:
+        list -- The emoji/emojis that are closest to the given colour
+    """
+    r, g, b = rgb
+    colour_diffs = []
+    for colour in emoji_dictionary.keys():
+        cr, cg, cb = colour
+        colour_diff = sqrt(abs(int(r) - int(cr))**2 + abs(int(g) - int(cg))**2 + abs(int(b) - int(cb))**2)
+        colour_diffs.append((colour_diff, colour))
+    return emoji_dictionary.get(min(colour_diffs)[1])
 
 
 def generate_metafile():

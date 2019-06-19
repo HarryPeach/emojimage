@@ -2,12 +2,13 @@ import logging
 import argparse
 import os
 from PIL import Image
-from .metafile import generate_metafile, does_metafile_exist, populate_emoji_dictionary
+from .metafile import (generate_metafile, does_metafile_exist, populate_emoji_dictionary, emoji_dictionary,
+                       get_closest_colour)
 from .log_manager import setup_custom_logger
-from .img_utils import resize_image, get_emoji_image
+from .img_utils import resize_image, get_emoji_image, get_average_color
 
 
-def create_collage(path, image_scale=1, emoji_size=64):
+def create_collage(path, image_scale=1, emoji_size=16):
     """Creates a collage of emojis from image data
 
     Arguments:
@@ -15,7 +16,7 @@ def create_collage(path, image_scale=1, emoji_size=64):
 
     Keyword Arguments:
         image_scale {int} -- The scale of the output image (default: {1})
-        emoji_size {int} -- The size for each emoji to be (default: {64})
+        emoji_size {int} -- The size for each emoji to be (default: {16})
     """
     image = Image.open(path)
 
@@ -34,9 +35,20 @@ def create_collage(path, image_scale=1, emoji_size=64):
     composite_image = Image.new("RGB", (width, height))
     # For every x emoji
     for x in range(0, emojis_x):
-        print(f"X coord: {(width/emojis_x) * x}")
+        for y in range(0, emojis_y):
+            # Temporary image to crop and get average color
+            temp_image = image.copy().crop((x * emoji_size,
+                                            y * emoji_size,
+                                            (x + 1) * emoji_size,
+                                            (y + 1) * emoji_size))
+            temp_avg = get_average_color(temp_image)
 
-    print(get_emoji_image("adult"))
+            offset = ((width//emojis_x) * x, (height//emojis_y) * y)
+            emoji_image = get_emoji_image("face-with-tears-of-joy")
+            composite_image.paste(emoji_image.resize((emoji_size, emoji_size)), offset)
+
+    # Save the final image
+    composite_image.save("composite.png")
 
 if __name__ == "__main__":
     # Setup logger
@@ -61,5 +73,6 @@ if __name__ == "__main__":
         logger.debug("Emoji metafile already existed, and so was not created")
 
     # TODO implement arguments for width, height, and emoji size
-    create_collage(args.image_input)
+    # create_collage(args.image_input)
     populate_emoji_dictionary()
+    get_closest_colour((123, 123, 253))

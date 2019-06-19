@@ -15,7 +15,7 @@ def get_emoji_image(name):
     """
     with resources.path("emojimage", "emoji") as p:
         for emoji_path in p.glob(name + ".*"):
-            return emoji_path
+            return Image.open(emoji_path)
         return None
 
 
