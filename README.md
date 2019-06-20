@@ -35,7 +35,6 @@ TODO
 1. Speed up the program, moderate size images can take 5+ minutes to process, dependent on emoji size.
 2. More documentation and ease of use changes
 3. More customizablility through command-line arguments
-4. Terminal status output
 
 ## License
 

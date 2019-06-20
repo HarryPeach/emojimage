@@ -2,6 +2,7 @@ import logging
 import argparse
 import os
 import random
+import sys
 from PIL import Image
 from .metafile import (generate_metafile, does_metafile_exist, populate_emoji_dictionary, emoji_dictionary,
                        get_closest_colour)
@@ -9,7 +10,7 @@ from .log_manager import setup_custom_logger
 from .img_utils import resize_image, get_emoji_image, get_average_color
 
 
-def create_collage(path, image_scale=1, emoji_size=16):
+def create_collage(path, image_scale=1, emoji_size=16, console_output=True):
     """Creates a collage of emojis from image data
 
     Arguments:
@@ -18,6 +19,7 @@ def create_collage(path, image_scale=1, emoji_size=16):
     Keyword Arguments:
         image_scale {int} -- The scale of the output image (default: {1})
         emoji_size {int} -- The size for each emoji to be (default: {16})
+        console_output {bool} -- Whether to show progress to the console (default: {True})
     """
     image = Image.open(path)
 
@@ -48,6 +50,10 @@ def create_collage(path, image_scale=1, emoji_size=16):
                                             (y + 1) * emoji_size))
             temp_avg = get_average_color(temp_image)
 
+            if console_output:
+                sys.stdout.write(f"\rProgress: x({x}/{emojis_x}), y({y}/{emojis_y})")
+                sys.stdout.flush()
+
             offset = ((width//emojis_x) * x, (height//emojis_y) * y)
             emoji_image = get_emoji_image(random.choice(get_closest_colour(get_average_color(temp_image))))
             composite_image.paste(emoji_image.resize((emoji_size, emoji_size)), offset)
@@ -65,6 +71,7 @@ def main():
     parser.add_argument("image_input", help="The image to convert")
     parser.add_argument("--force-metafile-generate", action="store_true",
                         help="Forces regeneration of the average-colour emoji metafile")
+    parser.add_argument("--disable-progress", action="store_false", help="Disables the progress output")
     parser.add_argument("-d", "--debug", action="store_true", help="Enable printing of debug logs")
 
     args = parser.parse_args()
@@ -79,7 +86,7 @@ def main():
         logger.debug("Emoji metafile already existed, and so was not created")
 
     # TODO implement arguments for width, height, and emoji size
-    create_collage(args.image_input)
+    create_collage(args.image_input, console_output=args.disable_progress)
 
 
 if __name__ == "__main__":
