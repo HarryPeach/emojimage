@@ -23,7 +23,7 @@ def create_collage(path, image_scale=1, emoji_size=16):
 
     # Populate the emoji dictionary if it is empty
     if not emoji_dictionary:
-        populate_emoji_dictionary() 
+        populate_emoji_dictionary()
 
     # Resize the image if a scale is specified
     if image_scale != 1:
@@ -55,7 +55,8 @@ def create_collage(path, image_scale=1, emoji_size=16):
     # Save the final image
     composite_image.save("composite.png")
 
-if __name__ == "__main__":
+
+def main():
     # Setup logger
     logger = setup_custom_logger("root")
 
@@ -79,3 +80,7 @@ if __name__ == "__main__":
 
     # TODO implement arguments for width, height, and emoji size
     create_collage(args.image_input)
+
+
+if __name__ == "__main__":
+    main()

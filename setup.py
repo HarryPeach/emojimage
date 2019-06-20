@@ -84,9 +84,10 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     py_modules=['emojimage'],
+    packages=['emojimage', 'emojimage.emoji'],
 
     entry_points={
-        'console_scripts': ['mycli=emojimage:cli'],
+        'console_scripts': ['emojimage = emojimage.__main__:main']
     },
     install_requires=REQUIRED,
     include_package_data=True,
@@ -97,7 +98,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],

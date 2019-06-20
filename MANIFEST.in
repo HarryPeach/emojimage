@@ -1,2 +1,2 @@
 include LICENSE
-recursive include emojimage/emoji *
+recursive-include emojimage/emoji *
