@@ -9,8 +9,10 @@ emojimage is a Python program to convert an image into a collage of emojis.
 
 ### From the Command Line
 
-1. Install the package
-2. Use ```python -m emojimage <input>.jpg```
+1. Run ```python setup.py install```
+2. Run the program with your desired arguments
+   1. Use ```python -m emojimage <input> <output>``` to run anywhere
+   2. Use ```emojimage <input> <output>``` if Python scripts are on your path
 
 ### As a Python library
 

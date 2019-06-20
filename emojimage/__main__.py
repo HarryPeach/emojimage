@@ -10,7 +10,7 @@ from .log_manager import setup_custom_logger
 from .img_utils import resize_image, get_emoji_image, get_average_color
 
 
-def create_collage(path, image_scale=1, emoji_size=16, console_output=True):
+def create_collage(path_in, path_out, image_scale=1, emoji_size=16, console_output=True):
     """Creates a collage of emojis from image data
 
     Arguments:
@@ -21,7 +21,7 @@ def create_collage(path, image_scale=1, emoji_size=16, console_output=True):
         emoji_size {int} -- The size for each emoji to be (default: {16})
         console_output {bool} -- Whether to show progress to the console (default: {True})
     """
-    image = Image.open(path)
+    image = Image.open(path_in)
 
     # Populate the emoji dictionary if it is empty
     if not emoji_dictionary:
@@ -59,7 +59,7 @@ def create_collage(path, image_scale=1, emoji_size=16, console_output=True):
             composite_image.paste(emoji_image.resize((emoji_size, emoji_size)), offset)
 
     # Save the final image
-    composite_image.save("composite.png")
+    composite_image.save(path_out)
 
 
 def main():
@@ -69,6 +69,7 @@ def main():
     # Setup argument parser
     parser = argparse.ArgumentParser(description="convert an image into a collage of emojis")
     parser.add_argument("image_input", help="The image to convert")
+    parser.add_argument("image_output", help="The destination to store the output")
     parser.add_argument("--force-metafile-generate", action="store_true",
                         help="Forces regeneration of the average-colour emoji metafile")
     parser.add_argument("--disable-progress", action="store_false", help="Disables the progress output")
@@ -86,7 +87,7 @@ def main():
         logger.debug("Emoji metafile already existed, and so was not created")
 
     # TODO implement arguments for width, height, and emoji size
-    create_collage(args.image_input, console_output=args.disable_progress)
+    create_collage(args.image_input, args.image_output, console_output=args.disable_progress)
 
 
 if __name__ == "__main__":
