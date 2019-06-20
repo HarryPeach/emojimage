@@ -22,11 +22,20 @@ TODO
 
 > The emojis are from JoyPixels.
 
+**What version of Python do I need?**
+
+> Any version of Python over 3.7.0 should work
+
+**Are any external libraries required?**
+
+> The external libraries are available in the setup.py or requirements.txt
+
 ## Todo
 
 1. Speed up the program, moderate size images can take 5+ minutes to process, dependent on emoji size.
 2. More documentation and ease of use changes
 3. More customizablility through command-line arguments
+4. Terminal status output
 
 ## License
 
