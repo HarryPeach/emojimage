@@ -68,22 +68,14 @@ def generate_metafile():
     logger.info("Generating emoji metafile")
     logger.debug("Opening emoji resource folder")
 
-    # logger.debug("Opening metafile")
-    # with open(get_metafile_path(), 'w', newline='\n') as file:
-    #     csvwriter = csv.writer(file, delimiter=',')
-    #     logger.debug("Writing emoji metadata")
-    #     for x in resources.contents("emojimage.emoji"):
-    #         with resources.path("emojimage.emoji", x) as p:
-    #             image = Image.open(p)
-    #             r, g, b, a = get_average_color(image)
-    #             csvwriter.writerow([os.path.splitext(x)[0], r, g, b])
-
-    with resources.path("emojimage", "emoji") as p:
-        logger.debug("Opening metafile")
-        with open(get_metafile_path(), "w", newline='\n') as file:
-            logger.debug("Writing emoji metadata")
-            csvwriter = csv.writer(file, delimiter=',')
-            for emoji_path in p.glob("*"):
-                    image = Image.open(emoji_path)
-                    r, g, b, a = get_average_color(image)
-                    csvwriter.writerow([emoji_path.stem, r, g, b])
+    logger.debug("Opening metafile")
+    with open(get_metafile_path(), 'w', newline='\n') as file:
+        csvwriter = csv.writer(file, delimiter=',')
+        logger.debug("Writing emoji metadata")
+        for x in resources.contents("emojimage.emoji"):
+            if x.startswith("__"):
+                continue
+            with resources.path("emojimage.emoji", x) as p:
+                image = Image.open(p)
+                r, g, b, a = get_average_color(image)
+                csvwriter.writerow([os.path.splitext(x)[0], r, g, b])

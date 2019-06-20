@@ -13,10 +13,11 @@ def get_emoji_image(name):
     Returns:
         PIL.Image -- The image of the emoji, None if emoji does not exist.
     """
-    with resources.path("emojimage", "emoji") as p:
-        for emoji_path in p.glob(name + ".*"):
-            return Image.open(emoji_path)
-        return None
+    for x in resources.contents("emojimage.emoji"):
+        if name in x:
+            with resources.path("emojimage.emoji", x) as p:
+                return Image.open(p).copy()
+    return None
 
 
 def resize_image(image, scale):
