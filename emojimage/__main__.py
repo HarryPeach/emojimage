@@ -72,6 +72,10 @@ def main():
     parser.add_argument("image_output", help="The destination to store the output")
     parser.add_argument("--force-metafile-generate", action="store_true",
                         help="Forces regeneration of the average-colour emoji metafile")
+    parser.add_argument("-s", "--scale", action="store", help="Factor to scale the image by",
+                        const=1, default=1, type=int, nargs="?")
+    parser.add_argument("-e", "--emoji-size", action="store", help="Size of each emoji in the image",
+                        const=16, default=16, type=int, nargs="?")
     parser.add_argument("--disable-progress", action="store_false", help="Disables the progress output")
     parser.add_argument("-d", "--debug", action="store_true", help="Enable printing of debug logs")
 
@@ -86,8 +90,9 @@ def main():
     else:
         logger.debug("Emoji metafile already existed, and so was not created")
 
-    # TODO implement arguments for width, height, and emoji size
-    create_collage(args.image_input, args.image_output, console_output=args.disable_progress)
+    create_collage(args.image_input, args.image_output,
+                   console_output=args.disable_progress, image_scale=args.scale,
+                   emoji_size=int(args.emoji_size))
 
 
 if __name__ == "__main__":
