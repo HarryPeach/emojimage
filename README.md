@@ -16,7 +16,13 @@ emojimage is a Python program to convert an image into a collage of emojis.
 
 ### As a Python library
 
-TODO
+1. Install the module using ```python setup.py install```
+2. Import the module using ```import emojimage```
+3. Call create_collage() with the required arguments
+
+## Browsing the documentation
+
+Use the command ```python -m pydoc -b``` to run an interactive server and browse documentation for the program. All public functions are fully documented.
 
 ## FAQ
 
@@ -35,7 +41,6 @@ TODO
 ## Todo
 
 1. Speed up the program, moderate size images can take 5+ minutes to process, dependent on emoji size.
-2. More documentation and ease of use changes
 
 ## License
 
