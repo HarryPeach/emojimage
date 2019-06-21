@@ -1,7 +1,7 @@
 # emojimage
 
 ![Test Image](https://user-images.githubusercontent.com/4750998/59804960-ca430000-92e7-11e9-9207-8bfa3870fcf3.png?s=200)
-![Emoji'd Image](https://user-images.githubusercontent.com/4750998/59804970-d464fe80-92e7-11e9-89cc-5c9f194aa3cb.png?s=200)
+![Emoji'd Image](https://user-images.githubusercontent.com/4750998/59889195-262e8700-93c3-11e9-9eb2-ea328b5f620d.png?s=200)
 
 emojimage is a Python program to convert an image into a collage of emojis.
 
