@@ -44,5 +44,12 @@ def get_average_color(image):
         [tuple/int] -- The pixel value.
     """
     image = image.convert("RGBA")
-    resized_image = image.resize((1, 1))
-    return resized_image.getpixel((0, 0))
+    h = image.histogram()
+
+    r = h[0:256]
+    g = h[256:256*2]
+    b = h[256*2: 256*3]
+
+    return (sum(i * w for i, w in enumerate(r)) // sum(r),
+            sum(i * w for i, w in enumerate(g)) // sum(g),
+            sum(i * w for i, w in enumerate(b)) // sum(b), 0)
